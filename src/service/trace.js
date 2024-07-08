@@ -1,28 +1,40 @@
 import { iService } from "./service.js";
-import path from 'path';
+import path, {dirname} from 'path';
 import grpc from '@grpc/grpc-js';
 import { loadProto } from '../util/protoLoader.js'; // Assume this is a helper function to load proto files
 import {queue} from 'async';
+import {fileURLToPath} from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 export class TraceService extends iService {
+
+    server;
+    processors = {};
+
     constructor(config, onDataCallback) {
         super(config, onDataCallback);
         this.processingQueue = queue(this._processTask.bind(this), config.concurrency || 10);
     }
 
     async registerGrpcHandler(server) {
-        const PROTO_PATH = path.join(__dirname, '..', '.proto', 'opentelemetry', 'trace_service.proto');
-        const packageDefinition = loadProto(PROTO_PATH, [path.resolve(__dirname, '..', '.proto')]);
+        const PROTO_PATH = path.join(__dirname, '..', '..', '.proto', 'trace_service.proto');
+        const packageDefinition = loadProto(PROTO_PATH, [path.resolve(__dirname, '..', '..', '.proto')]);
         const protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
         const traceService = protoDescriptor.opentelemetry.proto.collector.trace.v1.TraceService;
 
         server.addService(traceService.service, {
             Export: this._handleGrpcRequest.bind(this)
         });
+        if (this.server == undefined) {
+            this.server = server;
+        }
     }
 
-    addProcessor(processor) {
-        this.processors.push(processor);
+    addProcessor(name, processor) {
+        this.processors[name] = processor;
     }
 
     async _handleGrpcRequest(call, callback) {
@@ -52,7 +64,7 @@ export class TraceService extends iService {
      * @param ackCallback
      */
     async process(data, ackCallback=undefined) {
-        const promises = this.processors.map(processor => {
+        const promises = Object.values(this.processors).map(processor => {
             return new Promise((resolve) => {
                 processor.process(data, resolve);
             });

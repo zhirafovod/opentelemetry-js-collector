@@ -12,9 +12,6 @@ export class iService {
 
     constructor(config, onDataCallback) {
         this.config = config;
-        if (onDataCallback === undefined) {
-            throw new Error('onDataCallback is required');
-        }
         this.onDataCallback = onDataCallback;
     }
 
@@ -57,7 +54,7 @@ export class iService {
      *
      * @param processor
      */
-    addProcessor(processor) {
+    addProcessor(name, processor) {
         throw new Error('not implemented');
     }
 

@@ -1,12 +1,12 @@
 {
   "name": "opentelemetry-js-collector",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "Apache-2.0",
   "description": "Open Telemetry Collector implemented in NodeJS",
   "main": "test/server.js",
   "module": "test/server.js",
   "bin": {
-    "stated": "test/server.js"
+    "stated": "main.js"
   },
   "repository": {
     "type": "git",
