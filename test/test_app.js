@@ -4,7 +4,11 @@ import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { CollectorTraceExporter } from '@opentelemetry/exporter-collector-grpc';
 import grpc from '@grpc/grpc-js';
 
-// This script generates 10 spans and sends them to the collector server
+/**
+ * Test script to generate some spans
+ *
+ * Generates 10 spans and sends them to the local collector server
+ */
 const collectorOptions = {
     url: 'https://localhost:4317',
     credentials: grpc.credentials.createInsecure(),
@@ -21,7 +25,6 @@ let count = 0;
 const targetSpanCount = 100;
 
 
-// TODO: increment counter
 function generateTestSpans() {
     const span = tracer.startSpan('test-span');
     span.setAttribute('custom-attribute', 'example-value');

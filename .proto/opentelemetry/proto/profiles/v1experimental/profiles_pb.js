@@ -1,4 +1,4 @@
-// source: opentelemetry/proto/profiles/v1experimental/profiles.proto
+// service: opentelemetry/proto/profiles/v1experimental/profiles.proto
 /**
  * @fileoverview
  * @enhanceable

@@ -1,13 +1,15 @@
 # OpenTelemetry JS Collector 
-[OpenTelemetry](https://github.com/open-telemetry) missing collector server 
-implementation.
+The [OpenTelemetry](https://github.com/open-telemetry) missing collector in 
+nodejs implementation.
 
 This project is a PoC 
+```js
+import {Collector} from 'opentelemtry-js-collector';
 
-## Getting Started
 
-### Installation
-
+const collector = new Collector()
+```
+## Installatio
 ```shell
 npm install
 ```
@@ -22,4 +24,3 @@ run the test app
 ```shell
 node test_app.js
 ```
-

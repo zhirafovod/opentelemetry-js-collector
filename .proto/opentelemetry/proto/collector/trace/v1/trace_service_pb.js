@@ -1,4 +1,4 @@
-// source: opentelemetry/proto/collector/trace/v1/trace_service.proto
+// service: opentelemetry/proto/collector/trace/v1/trace_service.proto
 /**
  * @fileoverview
  * @enhanceable

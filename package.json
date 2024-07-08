@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "license": "Apache-2.0",
   "description": "Open Telemetry Collector implemented in NodeJS",
-  "main": "server.js",
-  "module": "server.js",
+  "main": "test/server.js",
+  "module": "test/server.js",
   "bin": {
-    "stated": "./server.js"
+    "stated": "test/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zhirafovod/opentelemetry-js-collector"
+    "url": "git+https://github.com/zhirafovod/opentelemetry-js-collector.git"
   },
   "keywords": [
     "opentelemetry",
@@ -20,12 +20,21 @@
   "author": "Sergey Sergeev <zhirafovod@gmail.com>",
   "dependencies": {
     "@grpc/grpc-js": "^1.8.22",
-    "@grpc/proto-loader": "^0.7.13"
+    "@grpc/proto-loader": "^0.7.13",
+    "async": "^3.2.5"
   },
   "type": "module",
   "devDependencies": {
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/exporter-collector-grpc": "^0.25.0",
     "@opentelemetry/sdk-trace-node": "^1.25.0"
-  }
+  },
+  "scripts": {
+    "test": "echo to be implemented",
+    "start": "node test/server.js"
+  },
+  "bugs": {
+    "url": "https://github.com/zhirafovod/opentelemetry-js-collector/issues"
+  },
+  "homepage": "https://github.com/zhirafovod/opentelemetry-js-collector#readme"
 }

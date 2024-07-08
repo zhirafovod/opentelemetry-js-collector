@@ -6,7 +6,7 @@ import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const PROTO_PATH = path.join(__dirname, '.proto', 'opentelemetry', 'trace_service.proto');
+const PROTO_PATH = path.join(__dirname, '..','.proto', 'opentelemetry', 'trace_service.proto');
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
@@ -14,7 +14,7 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   enums: String,
   defaults: true,
   oneofs: true,
-  includeDirs: [path.resolve(__dirname), '.proto'],
+  includeDirs: [path.resolve(__dirname), '..', '.proto'],
 });
 
 const protoDescriptor = grpc.loadPackageDefinition(packageDefinition);

@@ -1,4 +1,4 @@
-// source: opentelemetry/proto/resource/v1/resource.proto
+// service: opentelemetry/proto/resource/v1/resource.proto
 /**
  * @fileoverview
  * @enhanceable

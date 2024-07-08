@@ -1,4 +1,4 @@
-// source: opentelemetry/proto/logs/v1/logs.proto
+// service: opentelemetry/proto/logs/v1/logs.proto
 /**
  * @fileoverview
  * @enhanceable

@@ -8,7 +8,7 @@
 // versions:
 // 	protoc-gen-grpc-web v1.5.0
 // 	protoc              v5.27.0
-// source: opentelemetry/proto/collector/metrics/v1/metrics_service.proto
+// service: opentelemetry/proto/collector/metrics/v1/metrics_service.proto
 
 
 /* eslint-disable */
