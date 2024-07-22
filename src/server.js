@@ -39,7 +39,6 @@ export class Collector {
                 Object.keys(this.processors).forEach(processorName => {
                     this.receivers.trace.addProcessor(processorName, this.processors[processorName]);
                 });
-
             }
         }
     }
