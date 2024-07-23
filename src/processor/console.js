@@ -10,10 +10,20 @@ export class ConsoleProcessor extends iProcessor {
     async process(data, dataAckCallback) {
         console.log('Processing data in consoleProcessor:', JSON.stringify(data));
         if (dataAckCallback != undefined) {
-            await dataAckCallback();
+            try {
+                await dataAckCallback(null, {});
+            } catch (err) {
+                console.error('Failed to acknowledge data with dataAckCallback', err);
+                throw err;
+            }
         }
         if (this.ackCallback != undefined) {
-            await this.ackCallback(data);
+            try {/**/
+                await this.ackCallback(data);
+            } catch (err) {
+                console.error('Failed to acknowledge data with this.ackCallback', err);
+                throw err;
+            }
         }
     }
 

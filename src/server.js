@@ -1,10 +1,11 @@
 import grpc from '@grpc/grpc-js';
 import {TraceService} from './service/trace.js';
 import {ConsoleProcessor} from "./processor/console.js";
+import {MetricService} from "./service/metric.js";
 
 // Default configuration
 const defaultConfig = {
-    receivers: ['trace'],
+    receivers: ['trace','metric'],
     processors: ['console'],
 };
 
@@ -38,6 +39,13 @@ export class Collector {
                 this.receivers.trace.registerGrpcHandler(this.server);
                 Object.keys(this.processors).forEach(processorName => {
                     this.receivers.trace.addProcessor(processorName, this.processors[processorName]);
+                });
+            }
+            if (this.config.receivers.includes('metric')) {
+                this.receivers.metric = new MetricService(this.config);
+                this.receivers.metric.registerGrpcHandler(this.server);
+                Object.keys(this.processors).forEach(processorName => {
+                    this.receivers.metric.addProcessor(processorName, this.processors[processorName]);
                 });
             }
         }
