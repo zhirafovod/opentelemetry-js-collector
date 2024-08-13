@@ -42,41 +42,49 @@ export class TraceService extends iService {
             await this.processingQueue.push({ data: call.request, ackCallback: callback });
         } catch (err) {
             console.error('Failed to handle gRPC request', err);
-            callback(err);
+            if (callback instanceof Function) {
+                callback(err);
+            } else {
+                console.error('Callback is not a function');
+            }
         }
     }
-
-    async _processTask(task, done) {
-        const { data, ackCallback } = task;
-        try {
-            await this.process(data, ackCallback);
-            done();
-        } catch (err) {
-            console.error('Failed to process task', err);
-            done(err);
-        }
-    }
-
-    /**
-     * This method should invoke every registered processor with the data and create a new ack callback for every
-     * processor. When each processor callback is completed, the method should invoke the ackCallback and onDataCallback.
-     * @param data
-     * @param ackCallback
-     */
-    async process(data, ackCallback=undefined) {
-        const promises = Object.values(this.processors).map(processor => {
-            return new Promise((resolve) => {
-                processor.process(data, resolve);
-            });
-        });
-
-        // Wait for all processors to complete
-        await Promise.all(promises);
-
-        // Call the original ackCallback
-        if (ackCallback) ackCallback();
-
-        // Call the onDataCallback
-        this.onDataCallback(data);
-    }
+    //
+    // async _processTask(task, done) {
+    //     const { data, ackCallback } = task;
+    //     try {
+    //         await this.process(data, ackCallback);
+    //         done();
+    //     } catch (err) {
+    //         console.error('Failed to process task', err);
+    //         if (done instanceof Function) {
+    //             done(err);
+    //         } else {
+    //             console.error('Done is not a function');
+    //         }
+    //     }
+    // }
+    //
+    // /**
+    //  * This method should invoke every registered processor with the data and create a new ack callback for every
+    //  * processor. When each processor callback is completed, the method should invoke the ackCallback and onDataCallback.
+    //  * @param data
+    //  * @param ackCallback
+    //  */
+    // async process(data, ackCallback=undefined) {
+    //     const promises = Object.values(this.processors).map(processor => {
+    //         return new Promise((resolve) => {
+    //             processor.process(data, resolve);
+    //         });
+    //     });
+    //
+    //     // Wait for all processors to complete
+    //     await Promise.all(promises);
+    //
+    //     // Call the original ackCallback
+    //     if (ackCallback) ackCallback();
+    //
+    //     // Call the onDataCallback
+    //     this.onDataCallback(data);
+    // }
 }
