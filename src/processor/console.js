@@ -18,7 +18,7 @@ export class ConsoleProcessor extends iProcessor {
             }
         }
         if (this.ackCallback != undefined) {
-            try {/**/
+            try {
                 await this.ackCallback(data);
             } catch (err) {
                 console.error('Failed to acknowledge data with this.ackCallback', err);

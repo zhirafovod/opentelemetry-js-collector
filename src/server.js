@@ -6,7 +6,8 @@ import {MetricService} from "./service/metric.js";
 // Default configuration
 const defaultConfig = {
     receivers: ['trace','metric'],
-    processors: ['console'],
+    processors: [],
+    // processors: ['console'],
 };
 
 export class Collector {
@@ -59,9 +60,9 @@ export class Collector {
     }
 
     async addProcessor(name, processor){
-        if (processor && ! name in this.processors) {
-            for (let receiver in this.receivers) {
-                receiver.addProcessor(name, processor);
+        if (processor != undefined && ! (name in this.processors)) {
+            for (let receiverName in this.receivers) {
+                await this.receivers[receiverName].addProcessor(name, processor);
             }
         }
     }

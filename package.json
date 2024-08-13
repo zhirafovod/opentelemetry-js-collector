@@ -1,6 +1,6 @@
 {
   "name": "opentelemetry-js-collector",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "Apache-2.0",
   "description": "Open Telemetry Collector implemented in NodeJS",
   "main": "test/server.js",
